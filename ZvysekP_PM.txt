@@ -1,0 +1,67 @@
+Узнать версию LAMMPS и основные параметры сборки
+cmd - C:\Users\Home\AppData\Local\LAMMPS 64-bit 29Aug2024
+
+lmp -h
+
+Проверить доступные пакеты - работает только на линуксе. на виндовс все уже продустановлено.
+bin - 
+	Не буду менять файлы в этой папке, но именно она используется для запуска LAMMPS.
+	Именно здесь находится файл lmp.exe, который ты запускаешь для работы с LAMMPS
+Potentials -	
+	десь хранятся параметры, которые определяют поведение частиц в симуляции, например, 	для потенциала Леннард-Джонса (lj), EAM (Embedded Atom Method) и других.
+	Ты будешь использовать эту папку, если тебе нужно указать файл с параметрами 	потенциала в твоём скрипте:
+		pair_style eam
+		pair_coeff * * Al_mm.eam
+
+plugins - Дополнительные модули для LAMMPS.
+	плагины, которые расширяют функциональность
+	Ты можешь не изменять эту папку, если не пишешь свои модули для LAMMPS.
+
+Benchmarks -
+	Тестовые задания для проверки производительности(как быстро) LAMMPS.
+frc_files-
+	Файлы с параметрами силы (force field).
+	Эти файлы используются для задания взаимодействий в сложных системах, например, 	полимеров или биологических молекул.
+	Если ты работаешь с полимерами или сложными системами, можешь указывать такие файлы 	в своём входном скрипте.
+------------------------------------------------------------------------
+
+make- obsahuje balicki ktere jsou a ktere amm nebo nemam nainstalovane
+bin  nejake verze kompolace?
+
+make serial - prelinkkovat balicky? do binu? kompilace?
+src - jsou vsehny prikazy, a balicky?
+
+src/make - kompilace nazevlmp_.. ?
+
+nainstalovat gpu  paralelni balicek
+------------------------------------------------------------------------
+
+rozdelin soubor na fddf.conf f samotny program ff.in
+
+atomic type atomic tag(id castice) type(ar,jina molekula), x
+
+jestli je nekolik typu atomu muzeme udelat group solvent type id_typu, pak pomoci toho muzeme vytahnout data o konkretni skupine z cele simulace?
+
+u gen rychlosty: mom jes - vynulovat celkovy momment
+
+
+read data - muze byt restart? config
+jestli vic iterakce mezi castice tak davat copy paste a menit typ castic
+------------------------------------------------------------------------
+
+pak u samotneho programu muzu napsat
+fix 1 solvent nve (typ statistickeho souboru)
+------------------------------------------------------------------------
+config obsahuje data box-L/2 L/2, pocet atomu ,hmotnosti, poloh 
+! pri generace napr poloh lip vygenerovat confic napr pomoci python
+
+------------------------------------------------------------------------
+
+pro mozna du: DisCasDyn(DPD) Celk sila = (konzervativni sila) + (disipativni sila)+(nahodna)
+plateji v systemu jenom nevazane interakce? 
+pair style dpd
+pair coeff 
+
+
+ 
+du jenom polymer? polymer a tekutinou ve vode se nemusi rozpustit ale mozeme pouzit alkoholu se rozpousti/ asi chceme rozpoustet a to sledovat/ Ovlivnuje teplota viskozita.?

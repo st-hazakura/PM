@@ -1,0 +1,99 @@
+1. Van der waalsova sila - teorie jak se castice pritahuji  odpuzuji a LJ numericke vyadreni.
+2. Pohybova rovnice - 
+3. MD - zpusob popsat iterakce mezi casticema(molekula, atom) pomoci pohybovych rovnic(diferencialni)
+4. Zakladni sily - сильное и слабое ядернa sila, gravitacni,elektromagneticka
+5. Pauliho vylucovaci princip 
+6. Dipol-
+7. LJ je to numericka aprozimace Van der Waalsovke sily
+
+Postup PM:
+1. Fyzikalni problem  formulace
+2. Vytvoreni modelu. a) Jednodusi ak jev b) Zjednoduseni modelu vede k chybam c) Vysledny model nemusi odpovidat jevu
+3. Reseni modeluL Pomoci numerickych rovnic ( obycejnych nebo parcialnich)
+4. Srovnovani vysledku s data ldyz ne predelat model
+
+Techniky PM:
+casticove modelovani: (vysledky presnejsi jak u SP ale cas narocnejsi a potrebuje velky pocet castic), a velky pocet ODR.
+skladani z jednotlivych castic(atomu,e, iontu)
+	-MC - stochasticky pravdepodobnost
+	-MD - deterministicka matoda,numericky resime pohyb rovnice a sttisticky 	soubor. ODR
+	-Hybridni stach a determ tak aby byl nejefiktivnejsi
+ 
+spojite modelovani - 
+hybridni - spojite a casticove 
+
+
+
+MD
+Statisticke casticove modelovani. Kde chovani castic popsano pomoci pohybovych rovnic a prislusneho statistickeho souboru.
+Pri reseni fyzikalniho problem metodou MD:
+1. Zvolit oblast. 
+2. Najit vsehnu pusobici sily.
+3. Urcit pocatecni stav. 
+4, Numericky veresit pohybove rovnice.
+
+1. 
+a-Tvar
+	a)U nesymetrickeho problem oblast je *ctvrec a u symetrickeho jeho puvodni hranice
+	b) Velikost- podle poctu castic a pozadovane vysledky(kapalina,plyn)
+b-Okrajove podminky
+	zahovani konstantniho poctu castic, simulovani odletani a priletani dalsi castice
+plati jenom pro homogenni system (napr vlevo krabice zima a vpravo teplo pri POP neni homogenni a neplati). Castice co prileti neni ta sama co ta co odleti
+	chceme simulovat volny objem - protozze box ma steny ktere ovlivnuji vysledky - okrajovy effect. Proto vezmeme v boxu maly box ktery bude mit POP a bude simalacni bunkou
+
+
+2. Sily(Elektomagneticke sily pomoci napr LJ)
+a) Nepracujeme primo se silami ale se vzdalenostmi
+b) Pri vypocte sil zapocitavame silove pusobeni nejblizsi castice(Metoda ejblizsich obrazu)
+
+3. Inicializace (napr boltzm rozlozeni rychlosti)
+
+ 4. Pohybove Rovnice
+	Euler, prvniho radu: neni moc presna, prestnost je delta t. Jsou silnejsi algoritmy 	Rungeho-Kutty,prediktor kollektor(typicky pro pohyb planet)
+Vic presnejsi pro vetsi pocet castiv:
+	Modifikovany Euler druheho radu
+	Verletova metoda  - minus potreba pouuzivat hodnotu v aktualnim  nesledujicim kroku
+	Leap frog (kde uvazujeme pulkroky) - minus: musime vedet pocatecni hodnoty r, v1/2
+
+Euler je univerzalni. Ale Verlet a leap-frog neni, jsou omezena na sily gravitacni a elektrostaticke, nejsou pro loranzovou silu.
+
+Pokud sila zavisi jenom na poloze tak verlet = Leap frog
+
+
+Problemy: 
+1) velikost casoveho kroku 
+2) Pocatecni podminky - proto exist ekvilibracni faze
+3) Nefyzikalni ohrev - *id plyn s rozdelenim rychlosti MaxBoltz bude se za chvilku ohrivat. Zmena poloh zmeni kin en castic
+
+faze inicializace- ekvilibrace - produkcni
+
+-----------------------------
+Volna energie - max energie pro konani prace pri konst T a P
+gibbs - G = H- TS 
+H= U+PV: H-entalpie - celkova energie system(W a U-vnitrni en), S- entropie, jak je system chaoticky,kvuli ni se enrgie straci
+Pro MD volna n=energie ukazuje jak ja moc vychoden nasledujici stav systemu
+
+Regulace T a P
+	T -termostat: Berendsuv - linearni korekce(rychlosti * koef), porusuje rozlozeni rychlosti ale rychla korekce T
+		   Nose Hoover - udrzuje kanonicke rozlozeni energii - pracdep ze castice je s En E 
+	P - barostat: Isotropni - Zmena vsech stran boxu najednou
+		      Anizotropni - zmena jedne strany boxu?
+
+Pomoci MD studujeme:
+	analiza energie
+	Difuze - premisteni castice z mista s velkou koncentraci do mista s nizkou konc
+	Fazove prechody
+
+Van der Waals sily a LJ potencial:
+Van der Waals sily teorie - iterakce mazi castice:
+	Disperzni sily(Indukce dipolu) - premisteni el k jine strane atomu +- -> -+
+	Odpuzujici sily: Pauli vylucovaci princip- atomy nemuzou byt ve stejnem kvantovem stavu - 2 spiny nahoru, na orbitalu atomu musou byt 2 el se spinem nahoru a dolu, pri prizovani orbitaly zacinaji nakladat a proto nemuzou mit stejne spiny
+LJ je model Ven der Waalsovske sily, epsilon - hloubka jamy, sigma diametr castice
+Jine modely sily - Kulonvsky potencial, morzovsky potencial - pro chemicke vazby
+
+Metody: Euler, Verlet, Leap-frog
+!! Model je podminky simulace NVE, NVT, NPT,	
+
+kdyz pracuju v NVT podminkach nedalam pouze rozdil potencialnich energie,ale hraje roli jeste entalpie. Rozdil volne energie v 1 a 2 stavu je tam zahrnuta entalpie  celkova prace kterrou system mohl udelat. System kona prace aby molekuly se dostali k sobe.   Vedet o volne energie- max vyuzitelna energie aby system vykonal prace(jakou?). 
+
+Co je MD, co je regulace teploty a tlaku, co jsou periodicke podminky. Co s MD da se studovat, vazebnou energie molekul difuze
